@@ -24,3 +24,7 @@ html, body {
     font-family: Georgia;
     margin: 10px 10px;
 }
+
+.doesname {
+    white-space: nowrap;
+}
