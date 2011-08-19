@@ -40,7 +40,7 @@ var DoES = (function() {
                 rruleObj[bits[0].toLowerCase()] = bits[1];
             }
             // Should learn what else might happen too at some point
-            if (rruleObj.freq != 'WEEKLY') {
+            if (rruleObj.freq != 'WEEKLY' && rruleObj.freq != 'DAILY') {
                 return false;
             }
             if (Number(iCalEvent.start) > dateNum) {
@@ -48,6 +48,10 @@ var DoES = (function() {
             }
             if ( rruleObj.until && Number(rruleObj.until) <= dateNum) {
                 return false;
+            }
+            if (rruleObj.freq == 'DAILY') {
+                // No need to check days
+                return true;
             }
             if (!rruleObj.byday) {
                 return false;
@@ -101,6 +105,15 @@ var DoES = (function() {
             if (iCalEvent.location && ! iCalEvent.location.match(/(DoES|Office|Meeting Room)/i)) {
                 valid = false;
             }
+            // Check for exclusions
+            if (valid && iCalEvent.exdate) {
+                for (var i = 0, l = iCalEvent.exdate.length; i < l; ++i) {
+                    if (Number(iCalEvent.exdate[i]) == dateNum) {
+                        valid = false;
+                        break;
+                    }
+                }
+            }
             if (valid) {
                 var matches = iCalEvent.summary.match(/^("([^"]+)"|'([^']+)')/);
                 var name = iCalEvent.summary.split(/\s/)[0];
@@ -147,6 +160,13 @@ var DoES = (function() {
             } else if ((matches = line.match(/^LOCATION:(.*)$/))) {
                 if (iCalEvent) {
                     iCalEvent.location = matches[1];
+                }
+            } else if ((matches = line.match(/^EXDATE;VALUE=DATE:([0-9]+)$/))) {
+                if (iCalEvent) {
+                    if (!iCalEvent.exdate) {
+                        iCalEvent.exdate = [];
+                    }
+                    iCalEvent.exdate.push( matches[1] );
                 }
             }
         }
