@@ -171,7 +171,9 @@ var DoES = (function() {
             }
         }
         var welcomeString = 'Welcome to <span class="doesname">DoES Liverpool</span>';
-        if (names.length > 0) {
+        if (names.length == 1 ) {
+            welcomeString = 'Welcome '+names[0];
+        } else if (names.length > 0) {
             var lastName = names.pop();
             welcomeString = 'Welcome '+names.join(', ')+' and '+lastName;
         }
