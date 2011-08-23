@@ -94,6 +94,9 @@ var DoES = (function() {
         }
         function handleEvent() {
             var valid = false;
+            if (Number(iCalEvent.end) == Number(iCalEvent.start)) {
+                iCalEvent.end = Number(iCalEvent.end)+1;
+            }
             if (iCalEvent.rrule) {
                 //FREQ=WEEKLY;BYDAY=MO,WE,TH,FR;UNTIL=20110826
                 valid = valid || iCalRRuleMatches(iCalEvent.rrule);
@@ -133,20 +136,20 @@ var DoES = (function() {
                 iCalEvent = {};
             } else if (line == 'END:VEVENT') {
                 handleEvent();
-            } else if ((matches = line.match(/^(DTSTART;VALUE=DATE:([0-9]+)|DTSTART:([0-9]+))/))) {
+            } else if ((matches = line.match(/^(DTSTART;VALUE=DATE:([0-9]+)(T[0-9TZ]+)?|DTSTART:([0-9]+)(T[0-9TZ]+)?)/))) {
                 if (iCalEvent) {
                     if (matches[2]) {
                         iCalEvent.start = matches[2];
-                    } else if (matches[3]) {
-                        iCalEvent.start = matches[3];
+                    } else if (matches[4]) {
+                        iCalEvent.start = matches[4];
                     }
                 }
-            } else if ((matches = line.match(/^(DTEND;VALUE=DATE:([0-9]+)|DTEND:([0-9]+))/))) {
+            } else if ((matches = line.match(/^(DTEND;VALUE=DATE:([0-9]+)(T[0-9TZ]+)?|DTEND:([0-9]+)(T[0-9TZ]+)?)/))) {
                 if (iCalEvent) {
                     if (matches[2]) {
                         iCalEvent.end = matches[2];
-                    } else if (matches[3]) {
-                        iCalEvent.end = matches[3];
+                    } else if (matches[4]) {
+                        iCalEvent.end = matches[4];
                     }
                 }
             } else if ((matches = line.match(/^SUMMARY:(.*)$/))) {
