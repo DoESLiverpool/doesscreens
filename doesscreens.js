@@ -105,7 +105,7 @@ var DoES = (function() {
                     valid = true;
                 }
             }
-            if (iCalEvent.location && ! iCalEvent.location.match(/(DoES|Office|Meeting Room)/i)) {
+            if (iCalEvent.location && ! iCalEvent.location.match(/(DoES|Office|Meeting Room|Boardroom)/i)) {
                 valid = false;
             }
             // Check for exclusions
