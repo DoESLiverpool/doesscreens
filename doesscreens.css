@@ -12,7 +12,7 @@ html, body {
 
 .webcam {
     float:left;
-    width: 240px;
+    width: 360px;
 }
 
 .logo {
@@ -27,4 +27,12 @@ html, body {
 
 .doesname {
     white-space: nowrap;
+}
+
+h1 {
+    font-size: 300%;
+}
+
+h2 {
+    font-size: 200%;
 }

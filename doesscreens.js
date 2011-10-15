@@ -2,6 +2,7 @@ if (!window.console) {
     window.console = { log: function(){} };
 }
 var DoES = (function() {
+    var last_explosion = new Date('2011/09/17 13:00');
     var calendar_script;
     function updateCalendar() {
         if (calendar_script) {
@@ -105,7 +106,7 @@ var DoES = (function() {
                     valid = true;
                 }
             }
-            if (iCalEvent.location && ! iCalEvent.location.match(/(DoES|Office|Meeting Room|Boardroom)/i)) {
+            if (iCalEvent.location && ! iCalEvent.location.match(/(DoES|Office|Meeting Room|Boardroom|board room)/i)) {
                 valid = false;
             }
             // Check for exclusions
@@ -182,8 +183,14 @@ var DoES = (function() {
         }
         $('.welcome').html(welcomeString);
     }
+    function updateExplosions() {
+        var now = new Date();
+        var days = Math.floor((now - last_explosion) / 86400000)
+        $('.explosions .days').text(days);
+    }
 
     $(updateCalendar);
+    $(updateExplosions);
 
     return {
         calendarCallback: calendarCallback,
