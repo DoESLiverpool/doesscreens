@@ -174,7 +174,6 @@ var DoES = (function() {
                 }
             }
         }
-        console.log(names);
         var welcomeString = 'Welcome to <span class="doesname">DoES Liverpool</span>';
         if (names.length == 1 ) {
             welcomeString = 'Welcome '+names[0];
