@@ -3,14 +3,10 @@ if (!window.console) {
 }
 var DoES = (function() {
     var last_explosion = new Date('2011/09/17 13:00');
-    var calendar_script;
     function updateCalendar(cal) {
-        if (calendar_script) {
-            calendar_script.parentNode.removeChild(calendar_script);
-        }
-        calendar_script = document.createElement('script');
+        var calendar_script = document.createElement('script');
         calendar_script.setAttribute('type','text/javascript');
-        calendar_script.setAttribute('src','http://doesliverpool.com/does-api/calendar.php?callback=DoES.calendarCallback&cal='+encodeURIComponent(cal));
+        calendar_script.setAttribute('src','http://doesliverpool.com/does-api/calendar.php?callback=DoES.calendarCallback&cal='+encodeURIComponent(cal)+'&cb='+Math.random());
         document.getElementsByTagName('head')[0].appendChild(calendar_script);
     }
     function getDateNumber() {
