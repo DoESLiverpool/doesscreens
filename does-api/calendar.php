@@ -1,4 +1,6 @@
 <?php
+header('Content-type: application/javascript');
+
 if( $_REQUEST['cal'] == 'hotdeskers' ) {
     $json = json_encode(file_get_contents('http://www.google.com/calendar/ical/doesliverpool.com_l6b01q0dgpb8qdr2ljukjkbgs8%40group.calendar.google.com/private-63a7063e68ab0272af13f770bbf87b8e/basic.ics'));
 } else if ($_REQUEST['cal'] == 'events') {
