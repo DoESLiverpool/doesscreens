@@ -4,13 +4,13 @@ if (!window.console) {
 var DoES = (function() {
     var last_explosion = new Date('2011/09/17 13:00');
     var calendar_script;
-    function updateCalendar() {
+    function updateCalendar(cal) {
         if (calendar_script) {
             calendar_script.parentNode.removeChild(calendar_script);
         }
         calendar_script = document.createElement('script');
         calendar_script.setAttribute('type','text/javascript');
-        calendar_script.setAttribute('src','http://doesliverpool.com/does-api/calendar.php?callback=DoES.calendarCallback');
+        calendar_script.setAttribute('src','http://doesliverpool.com/does-api/calendar.php?callback=DoES.calendarCallback&cal='+encodeURIComponent(cal));
         document.getElementsByTagName('head')[0].appendChild(calendar_script);
     }
     function getDateNumber() {
@@ -28,11 +28,11 @@ var DoES = (function() {
         nowDate += day;
         return Number(nowDate);
     }
+    var names = [];
     function calendarCallback(ical) {
         var lines = ical.split(/(\n|\r)/);
         var iCalEvent;
         var dateNum = getDateNumber();
-        var names = [];
         function iCalRRuleMatches(rrule) {
             var parts = rrule.split(/;/);
             var rruleObj = {};
@@ -174,12 +174,14 @@ var DoES = (function() {
                 }
             }
         }
+        console.log(names);
         var welcomeString = 'Welcome to <span class="doesname">DoES Liverpool</span>';
         if (names.length == 1 ) {
             welcomeString = 'Welcome '+names[0];
         } else if (names.length > 0) {
-            var lastName = names.pop();
-            welcomeString = 'Welcome '+names.join(', ')+' and '+lastName;
+            var namesCopy = names.concat();
+            var lastName = namesCopy.pop();
+            welcomeString = 'Welcome '+namesCopy.join(', ')+' and '+lastName;
         }
         $('.welcome').html(welcomeString);
     }
@@ -189,7 +191,7 @@ var DoES = (function() {
         $('.explosions .days').text(days);
     }
 
-    $(updateCalendar);
+    $(function(){updateCalendar('hotdeskers');updateCalendar('events');});
     $(updateExplosions);
 
     return {
