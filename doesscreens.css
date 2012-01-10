@@ -1,6 +1,9 @@
 html, body {
     margin: 0;
     padding: 0;
+    width: 720px;
+    height: 1280px;
+    overflow: hidden;
 }
 
 .webcams {
