@@ -96,6 +96,12 @@ var DoES = (function() {
                     }
                 }
             }
+            if (day_matched && rruleObj.interval) {
+                if (rruleObj.interval != Math.floor((new Date()).getDate())) {
+                    // Right day, wrong interval
+                    day_matched = false;
+                }
+            }
             return day_matched;
         }
         function handleEvent() {
