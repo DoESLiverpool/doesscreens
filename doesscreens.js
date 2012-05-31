@@ -2,6 +2,15 @@ if (!window.console) {
     window.console = { log: function(){} };
 }
 var DoES = (function() {
+    var page_load_time = new Date();
+    // Check whether the page has got a bit old
+    var page_timeout_interval = setInterval(function() {
+        if ( ((new Date()) - page_load_time) > 30 * 60000) {
+            window.location.reload();
+            // Just in case, shouldn't really make it here
+            clearInterval(page_timeout_interval);
+        }
+    }, 60000);
     var last_explosion = new Date('2011/09/17 13:00');
     function updateCalendar(cal) {
         var calendar_script = document.createElement('script');
