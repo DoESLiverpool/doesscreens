@@ -62,6 +62,35 @@ var DoES = (function() {
             if (!rruleObj.byday) {
                 return false;
             }
+            if (rruleObj.interval) {
+                var today = new Date();
+                today.setHours(0);
+                today.setMinutes(0);
+                today.setSeconds(0);
+                var start = new Date(today);
+                start.setYear(iCalEvent.start.substr(0,4));
+                // Make sure the date is a date every month has
+                start.setDate(1);
+                start.setMonth(iCalEvent.start.substr(4,2)-1);
+                start.setDate(iCalEvent.start.substr(6,2));
+                var interval = Math.floor((today - start) / 86400000);
+                switch(rruleObj.freq) {
+                case 'weekly':
+                    var weeks = interval / 7;
+                    if (weeks == Math.floor(weeks) && ((interval / 7) % rruleObj.interval) == 0) {
+                        return true;
+                    }
+                    break;
+                case 'daily':
+                    if (interval == rruleObj.interval) {
+                        return true;
+                    }
+                    break;
+                    // FIXME - add others?
+                default:
+                }
+                return false;
+            }
             var days = rruleObj.byday.split(',');
             var day_matched = false;
             for (var i = 0, l = days.length; i < l; ++i) {
@@ -94,12 +123,6 @@ var DoES = (function() {
                         day_matched = true;
                         break;
                     }
-                }
-            }
-            if (day_matched && rruleObj.interval) {
-                if (rruleObj.interval != Math.floor((new Date()).getDate())) {
-                    // Right day, wrong interval
-                    day_matched = false;
                 }
             }
             return day_matched;
