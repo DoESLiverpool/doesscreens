@@ -1,7 +1,10 @@
 if (!window.console) {
     window.console = { log: function(){} };
 }
+
 var DoES = (function() {
+
+    
     var page_load_time = new Date();
     // Check whether the page has got a bit old
     var page_timeout_interval = setInterval(function() {
@@ -52,16 +55,16 @@ var DoES = (function() {
             if (Number(iCalEvent.start) > dateNum) {
                 return false;
             }
-            if ( rruleObj.until && Number(rruleObj.until) <= dateNum) {
+            if ( rruleObj.until && Number(rruleObj.until.substring(0,8)) <= dateNum) {
                 return false;
             }
             if (rruleObj.freq == 'DAILY') {
                 // No need to check days
                 return true;
             }
-            if (!rruleObj.byday) {
+            /*if (!rruleObj.byday) {
                 return false;
-            }
+            }*/
             if (rruleObj.interval) {
                 var today = new Date();
                 today.setHours(0);
@@ -74,7 +77,8 @@ var DoES = (function() {
                 start.setMonth(iCalEvent.start.substr(4,2)-1);
                 start.setDate(iCalEvent.start.substr(6,2));
                 var interval = Math.floor((today - start) / 86400000);
-                switch(rruleObj.freq) {
+                switch(rruleObj.freq.toLowerCase()) {
+                //RRULE:FREQ=WEEKLY;INTERVAL=4;BYDAY=TH
                 case 'weekly':
                     var weeks = interval / 7;
                     if (weeks == Math.floor(weeks) && ((interval / 7) % rruleObj.interval) == 0) {
@@ -128,6 +132,7 @@ var DoES = (function() {
             return day_matched;
         }
         function handleEvent() {
+            var name = iCalEvent.summary.split(/\s/)[0];
             var valid = false;
             if (Number(iCalEvent.end) == Number(iCalEvent.start)) {
                 iCalEvent.end = Number(iCalEvent.end)+1;
