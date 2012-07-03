@@ -2,22 +2,10 @@ if (!window.console) {
     window.console = { log: function(){} };
 }
 
-function debug(s)
-{
-    if (isLiamOrBea)
-        console.log(s);
-}
-
 var DoES = (function() {
 
     
-    /*/
-    var dateToUse = new Date('2012/07/2 13:00');
-    /*/
-    var dateToUse = new Date();
-    //*/
-
-    var page_load_time = dateToUse;
+    var page_load_time = new Date();
     // Check whether the page has got a bit old
     var page_timeout_interval = setInterval(function() {
         if ( ((new Date()) - page_load_time) > 30 * 60000) {
@@ -34,7 +22,7 @@ var DoES = (function() {
         document.getElementsByTagName('head')[0].appendChild(calendar_script);
     }
     function getDateNumber() {
-        var now = dateToUse;
+        var now = new Date();
         var nowDate = String(now.getYear()+1900);
         var month = now.getMonth()+1;
         var day = now.getDate();
@@ -78,7 +66,7 @@ var DoES = (function() {
                 return false;
             }*/
             if (rruleObj.interval) {
-                var today = dateToUse;
+                var today = new Date();
                 today.setHours(0);
                 today.setMinutes(0);
                 today.setSeconds(0);
@@ -90,6 +78,7 @@ var DoES = (function() {
                 start.setDate(iCalEvent.start.substr(6,2));
                 var interval = Math.floor((today - start) / 86400000);
                 switch(rruleObj.freq.toLowerCase()) {
+                //RRULE:FREQ=WEEKLY;INTERVAL=4;BYDAY=TH
                 case 'weekly':
                     var weeks = interval / 7;
                     if (weeks == Math.floor(weeks) && ((interval / 7) % rruleObj.interval) == 0) {
@@ -134,7 +123,7 @@ var DoES = (function() {
                     break;
                 }
                 if (day !== null) {
-                    if (day == (dateToUse).getDay()) {
+                    if (day == (new Date()).getDay()) {
                         day_matched = true;
                         break;
                     }
@@ -144,17 +133,13 @@ var DoES = (function() {
         }
         function handleEvent() {
             var name = iCalEvent.summary.split(/\s/)[0];
-            isLiamOrBea = (name == "Liam" || name == "Bea");
-            debug(name);
             var valid = false;
             if (Number(iCalEvent.end) == Number(iCalEvent.start)) {
                 iCalEvent.end = Number(iCalEvent.end)+1;
             }
             if (iCalEvent.rrule) {
-                console.log(name);
                 //FREQ=WEEKLY;BYDAY=MO,WE,TH,FR;UNTIL=20110826
                 valid = valid || iCalRRuleMatches(iCalEvent.rrule);
-                debug("Valid after iCalRRuleMatches: "+valid)
             } else if (iCalEvent.start && iCalEvent.end && iCalEvent.summary) {
                 if (Number(iCalEvent.start) <= dateNum && Number(iCalEvent.end) > dateNum) {
                     valid = true;
