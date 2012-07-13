@@ -3,7 +3,6 @@ if (!window.console) {
 }
 
 var DoES = (function() {
-
     
     var page_load_time = new Date();
     // Check whether the page has got a bit old
@@ -41,6 +40,7 @@ var DoES = (function() {
         var lines = ical.split(/(\n|\r)/);
         var iCalEvent;
         var dateNum = getDateNumber();
+ 
         function iCalRRuleMatches(rrule) {
             var parts = rrule.split(/;/);
             var rruleObj = {};
@@ -49,6 +49,56 @@ var DoES = (function() {
                 rruleObj[bits[0].toLowerCase()] = bits[1];
             }
             // Should learn what else might happen too at some point
+
+
+            ////////////
+            //MY CODE //
+            ////////////
+
+
+            if( rruleObj.freq  == 'MONTHLY' )
+            {
+                // 1st 2nd etc..
+                var times = Number(rruleObj.byday.substr(0,1));
+
+                //monday tuesday...
+                var dayOfWeek = rruleObj.byday.substr(1);
+                
+                var day = null;
+                switch (dayOfWeek)
+                {
+                    case 'SU':
+                        day = 6;
+                        break;
+                    case 'MO':
+                        day = 0;
+                        break;
+                    case 'TU':
+                        day = 1;
+                        break;
+                    case 'WE':
+                        day = 2;
+                        break;
+                    case 'TH':
+                        day = 3;
+                        break;
+                    case 'FR':
+                        day = 4;
+                        break;
+                    case 'SA':
+                        day = 5;
+                    break;
+                }
+
+                //not right day of week
+                if(day != new Date().getUTCDay())
+                    return false;
+
+                if(Math.floor( new Date().getUTCDate()/7)+1 == times)
+                    return true;
+
+                return false;
+            }
             if (rruleObj.freq != 'WEEKLY' && rruleObj.freq != 'DAILY') {
                 return false;
             }
@@ -132,7 +182,8 @@ var DoES = (function() {
             return day_matched;
         }
         function handleEvent() {
-            var name = iCalEvent.summary.split(/\s/)[0];
+            var name = iCalEvent.summary.split(/\s/)[0];           
+
             var valid = false;
             if (Number(iCalEvent.end) == Number(iCalEvent.start)) {
                 iCalEvent.end = Number(iCalEvent.end)+1;
@@ -140,6 +191,7 @@ var DoES = (function() {
             if (iCalEvent.rrule) {
                 //FREQ=WEEKLY;BYDAY=MO,WE,TH,FR;UNTIL=20110826
                 valid = valid || iCalRRuleMatches(iCalEvent.rrule);
+               
             } else if (iCalEvent.start && iCalEvent.end && iCalEvent.summary) {
                 if (Number(iCalEvent.start) <= dateNum && Number(iCalEvent.end) > dateNum) {
                     valid = true;
