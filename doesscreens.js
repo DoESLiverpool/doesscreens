@@ -50,12 +50,7 @@ var DoES = (function() {
             }
             // Should learn what else might happen too at some point
 
-
-            ////////////
-            //MY CODE //
-            ////////////
-
-
+            //code for events occurring every nth day of the month (example every 2nd monday)
             if( rruleObj.freq  == 'MONTHLY' )
             {
                 // 1st 2nd etc..
