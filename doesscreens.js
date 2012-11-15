@@ -15,6 +15,7 @@ var DoES = (function() {
         }
     }, 60000);
     var last_explosion = new Date('2011/09/17 13:00');
+    var last_flood = new Date('2012/10/04 11:00');
     function updateCalendar(cal) {
         var calendar_script = document.createElement('script');
         calendar_script.setAttribute('type','text/javascript');
@@ -223,14 +224,16 @@ var DoES = (function() {
         }
         $('.welcome').html(welcomeString);
     }
-    function updateExplosions() {
+    function updateEvents() {
         var now = new Date();
         var days = Math.floor((now - last_explosion) / 86400000)
         $('.explosions .days').text(days);
+        days = Math.floor((now - last_flood) / 86400000)
+        $('.floods .days').text(days);
     }
 
     $(function(){updateCalendar('hotdeskers');updateCalendar('events');});
-    $(updateExplosions);
+    $(updateEvents);
 
     return {
         calendarCallback: calendarCallback,
