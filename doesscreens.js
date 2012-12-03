@@ -19,7 +19,7 @@ var DoES = (function() {
     function updateCalendar(cal) {
         var calendar_script = document.createElement('script');
         calendar_script.setAttribute('type','text/javascript');
-        calendar_script.setAttribute('src','http://doesliverpool.com/does-api/calendar.php?callback=DoES.calendarCallback&cal='+encodeURIComponent(cal)+'&cb='+Math.random());
+        calendar_script.setAttribute('src','http://johnmckerrell.com/files/does-api/calendar.php?callback=DoES.calendarCallback&cal='+encodeURIComponent(cal)+'&cb='+Math.random());
         document.getElementsByTagName('head')[0].appendChild(calendar_script);
     }
     function getDateNumber() {
