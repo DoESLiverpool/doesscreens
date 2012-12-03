@@ -16,6 +16,11 @@ var DoES = (function() {
     }, 60000);
     var last_explosion = new Date('2011/09/17 13:00');
     var last_flood = new Date('2012/10/04 11:00');
+    function seasonalUpdates() {
+        if (page_load_time.getMonth() == 11 || ( page_load_time.getMonth() == 0 && page_load_time.getDate() < 7)) {
+            document.write('<script type="text/javascript" src="snow.js"></script>');
+        }
+    }
     function updateCalendar(cal) {
         var calendar_script = document.createElement('script');
         calendar_script.setAttribute('type','text/javascript');
@@ -234,6 +239,7 @@ var DoES = (function() {
 
     $(function(){updateCalendar('hotdeskers');updateCalendar('events');});
     $(updateEvents);
+    seasonalUpdates();
 
     return {
         calendarCallback: calendarCallback,
