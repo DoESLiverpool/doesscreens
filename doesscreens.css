@@ -1,22 +1,25 @@
 html, body {
     margin: 0;
     padding: 0;
-    width: 720px;
-    height: 1280px;
+    width: 900px;
+    height: 1440px;
     overflow: hidden;
 }
 
 .webcams {
     position: absolute;
-    width: 720px;
+    width: 840px;
     bottom: 0;
     left: 0;
+    padding: 0 30px;
+    background: white;
 }
 
 .webcam {
     float:left;
     width: 360px;
     /*width: 240px;*/
+    padding: 0 30px;
 }
 
 .logo {
