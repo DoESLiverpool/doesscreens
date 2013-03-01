@@ -237,7 +237,11 @@ var DoES = (function() {
         $('.floods .days').text(days);
     }
 
-    $(function(){updateCalendar('hotdeskers');updateCalendar('events');});
+    $(function(){
+        updateCalendar('hotdeskers');
+        updateCalendar('events');
+        updateCalendar('laser');
+    });
     $(updateEvents);
     seasonalUpdates();
 
