@@ -26,20 +26,26 @@
                 var webcams = [
                     {
                         id : 'corridor',
-                        url : 'http://192.168.0.4:8080/videostream.cgi',
+                        url : 'http://192.168.0.4:8080/videostream.cgi?',
                         username : 'doorbot',
                         password : password1
                     },
                     {
                         id : 'street',
-                        url : 'http://192.168.0.29:8082/videostream.cgi',
+                        url : 'http://192.168.0.29:8082/videostream.cgi?',
                         username : 'doorbot',
                         password : password2
+                    },
+                    {
+                        id : 'unit14',
+                        url : 'http://192.168.0.124:8085/media/?action=stream',
+                        username : 'doorbot',
+                        password : password3
                     }
                     ];
                 for ( var i = 0, l = webcams.length; i < l; ++i) {
                     var webcam = webcams[i];
-                    document.write('<div id="'+webcam.id+'" class="webcam"><img width="360" src="'+webcam.url+'?user='+webcam.username+'&pwd='+webcam.password+'"></div>');
+                    document.write('<div id="'+webcam.id+'" class="webcam"><img width="260" src="'+webcam.url+'&user='+webcam.username+'&pwd='+webcam.password+'"></div>');
                 }
             </script>
         </div>

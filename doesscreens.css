@@ -11,15 +11,20 @@ html, body {
     width: 840px;
     bottom: 0;
     left: 0;
-    padding: 0 30px;
+    padding: 0 00px;
     background: white;
 }
 
 .webcam {
     float:left;
-    width: 360px;
-    /*width: 240px;*/
-    padding: 0 30px;
+    /*width: 360px;*/
+    width: 260px;
+    padding: 0 00px;
+    margin-right: 10px;
+}
+
+.webcam:first() {
+    margin-left: 0;
 }
 
 .logo {
