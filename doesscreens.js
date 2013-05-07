@@ -14,7 +14,7 @@ var DoES = (function() {
             clearInterval(page_timeout_interval);
         }
     }, 60000);
-    var last_explosion = new Date('2011/09/17 13:00');
+    var last_explosion = new Date('2013/05/07 11:00');
     var last_flood = new Date('2012/10/04 11:00');
     function seasonalUpdates() {
         if (page_load_time.getMonth() == 11 || ( page_load_time.getMonth() == 0 && page_load_time.getDate() < 7)) {
