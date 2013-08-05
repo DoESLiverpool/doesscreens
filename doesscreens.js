@@ -58,6 +58,9 @@ var DoES = (function() {
             if (rruleObj.freq != 'WEEKLY' && rruleObj.freq != 'DAILY') {
                 return false;
             }
+            if (!iCalEvent.start) {
+                return;
+            }
             if (Number(iCalEvent.start) > dateNum) {
                 return false;
             }
@@ -182,20 +185,24 @@ var DoES = (function() {
                 iCalEvent = {};
             } else if (line == 'END:VEVENT') {
                 handleEvent();
-            } else if ((matches = line.match(/^(DTSTART;VALUE=DATE:([0-9]+)(T[0-9TZ]+)?|DTSTART:([0-9]+)(T[0-9TZ]+)?)/))) {
+            } else if ((matches = line.match(/^(DTSTART;VALUE=DATE:([0-9]+)(T[0-9TZ]+)?|DTSTART:([0-9]+)(T[0-9TZ]+)?|DTSTART;TZID=(.*?):([0-9T]+))/))) {
                 if (iCalEvent) {
                     if (matches[2]) {
                         iCalEvent.start = matches[2];
                     } else if (matches[4]) {
                         iCalEvent.start = matches[4];
+                    } else if (matches[6]) {
+                        iCalEvent.start = matches[6];
                     }
                 }
-            } else if ((matches = line.match(/^(DTEND;VALUE=DATE:([0-9]+)(T[0-9TZ]+)?|DTEND:([0-9]+)(T[0-9TZ]+)?)/))) {
+            } else if ((matches = line.match(/^(DTEND;VALUE=DATE:([0-9]+)(T[0-9TZ]+)?|DTEND:([0-9]+)(T[0-9TZ]+)?|DTSTART;TZID=(.*?):([0-9T]+))/))) {
                 if (iCalEvent) {
                     if (matches[2]) {
                         iCalEvent.end = matches[2];
                     } else if (matches[4]) {
                         iCalEvent.end = matches[4];
+                    } else if (matches[6]) {
+                        iCalEvent.end = matches[6];
                     }
                 }
             } else if ((matches = line.match(/^SUMMARY:(.*)$/))) {
