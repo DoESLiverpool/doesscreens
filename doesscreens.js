@@ -69,25 +69,25 @@ var DoES = (function() {
                 switch (dayOfWeek)
                 {
                     case 'SU':
-                        day = 6;
+                        day = 9;
                         break;
                     case 'MO':
-                        day = 0;
-                        break;
-                    case 'TU':
                         day = 1;
                         break;
-                    case 'WE':
+                    case 'TU':
                         day = 2;
                         break;
-                    case 'TH':
+                    case 'WE':
                         day = 3;
                         break;
-                    case 'FR':
+                    case 'TH':
                         day = 4;
                         break;
-                    case 'SA':
+                    case 'FR':
                         day = 5;
+                        break;
+                    case 'SA':
+                        day = 6;
                     break;
                 }
 
@@ -95,7 +95,7 @@ var DoES = (function() {
                 if(day != new Date().getUTCDay())
                     return false;
 
-                if(Math.floor( new Date().getUTCDate()/7)+1 == times)
+                if(Math.ceil( new Date().getUTCDate()/7) == times)
                     return true;
 
                 return false;
@@ -232,8 +232,9 @@ var DoES = (function() {
                 iCalEvent = {};
             } else if (line == 'END:VEVENT') {
                 handleEvent();
-            } else if ((matches = line.match(/^(DTSTART;VALUE=DATE:([0-9]+)(T[0-9TZ]+)?|DTSTART:([0-9]+)(T[0-9TZ]+)?|DTSTART;TZID=(.*?):([0-9T]+))/))) {
+            } else if ((matches = line.match(/^(DTSTART;VALUE=DATE:([0-9]+)(T[0-9TZ]+)?|DTSTART:([0-9]+)(T[0-9TZ]+)?|DTSTART;TZID=.*?:([0-9]+)(T[0-9TZ]+)?)/))) {
                 if (iCalEvent) {
+                    iCalEvent.dtstart = line;
                     if (matches[2]) {
                         iCalEvent.start = matches[2];
                     } else if (matches[4]) {
@@ -242,8 +243,9 @@ var DoES = (function() {
                         iCalEvent.start = matches[6];
                     }
                 }
-            } else if ((matches = line.match(/^(DTEND;VALUE=DATE:([0-9]+)(T[0-9TZ]+)?|DTEND:([0-9]+)(T[0-9TZ]+)?|DTSTART;TZID=(.*?):([0-9T]+))/))) {
+            } else if ((matches = line.match(/^(DTEND;VALUE=DATE:([0-9]+)(T[0-9TZ]+)?|DTEND:([0-9]+)(T[0-9TZ]+)?|DTSTART;TZID=.*?:([0-9]+)(T[0-9TZ]+)?)/))) {
                 if (iCalEvent) {
+                    iCalEvent.dtend = line;
                     if (matches[2]) {
                         iCalEvent.end = matches[2];
                     } else if (matches[4]) {
