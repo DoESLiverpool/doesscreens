@@ -221,6 +221,7 @@ var DoES = (function() {
                 } else if (matches && matches[3]) {
                     name = matches[3];
                 }
+                name = name.replace(/\\(?!\\)/, '')
                 names.push(name);
             }
             iCalEvent = null;
