@@ -56,6 +56,11 @@ var DoES = (function() {
             }
             // Should learn what else might happen too at some point
 
+            // Check if this event has expired first
+            if ( rruleObj.until && Number(rruleObj.until.substring(0,8)) <= dateNum) {
+                return false;
+            }
+
             //code for events occurring every nth day of the month (example every 2nd monday)
             if( rruleObj.freq  == 'MONTHLY' )
             {
@@ -107,9 +112,6 @@ var DoES = (function() {
                 return;
             }
             if (Number(iCalEvent.start) > dateNum) {
-                return false;
-            }
-            if ( rruleObj.until && Number(rruleObj.until.substring(0,8)) <= dateNum) {
                 return false;
             }
             if (rruleObj.freq == 'DAILY') {
