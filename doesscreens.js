@@ -216,8 +216,9 @@ var DoES = (function() {
                 }
             }
             if (valid) {
-                var matches = iCalEvent.summary.match(/^("([^"]+)"|'([^']+)')/);
-                var name = iCalEvent.summary.split(/\s/)[0];
+                var summary = iCalEvent.summary.replace(/^booked: /, '');
+                var matches = summary.match(/^("([^"]+)"|'([^']+)')/);
+                var name = summary.split(/\s/)[0];
                 if (matches && matches[2] ) {
                     name = matches[2];
                 } else if (matches && matches[3]) {
@@ -299,7 +300,8 @@ var DoES = (function() {
     $(function(){
         updateCalendar('hotdeskers');
         updateCalendar('events');
-        updateCalendar('laser');
+        updateCalendar('smalllaser');
+        updateCalendar('biglaser');
     });
     $(updateEvents);
     seasonalUpdates();
