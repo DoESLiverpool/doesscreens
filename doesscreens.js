@@ -216,7 +216,7 @@ var DoES = (function() {
                 }
             }
             if (valid) {
-                var summary = iCalEvent.summary.replace(/^booked: /, '');
+                var summary = iCalEvent.summary.replace(/^(booked|booking): /, '');
                 var matches = summary.match(/^("([^"]+)"|'([^']+)')/);
                 var name = summary.split(/\s/)[0];
                 if (matches && matches[2] ) {
