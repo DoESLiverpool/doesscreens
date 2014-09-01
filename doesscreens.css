@@ -15,6 +15,10 @@ html, body {
     background: white;
 }
 
+.webcam :first-child {
+    padding-left:152px;
+}
+
 .webcam {
     float:left;
     /*width: 360px;*/
