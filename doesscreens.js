@@ -203,7 +203,7 @@ var DoES = (function() {
                     valid = true;
                 }
             }
-            if (iCalEvent.location && ! iCalEvent.location.match(/(DoES|Office|Meeting Room|Boardroom|board room)/i)) {
+            if (iCalEvent.location && ! iCalEvent.location.match(/(Dinky|New Dinky|DoES|Office|Meeting Room|Boardroom|board room)/i)) {
                 valid = false;
             }
             // Check for exclusions
