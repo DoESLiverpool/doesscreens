@@ -10,9 +10,6 @@
         <!--<script type="text/javascript" src="snow.js"></script>-->
     </head>
     <body>
-        <div class="logo">
-            <img width=400 src="DoESLiverpool-Large.pgn" alt="DoES Liverpool">
-        </div>
         <h1 class="welcome">Welcome to <span class="doesname">DoES Liverpool</span></h1>
         <h2 class="explosions">Days since last explosion: <span class="days">?</span></h2>
         <h2 class="floods">Days since last flood: <span class="days">?</span></h2>
@@ -20,7 +17,7 @@
         <h1>Welcome Open Labs Developer Breakfast and Ada Lovelace Open Day attendees!</h1>
         -->
         <h3>Upcoming events:</h3>
-        <iframe src="https://www.google.com/calendar/embed?showTitle=0&amp;showNav=0&amp;showDate=0&amp;showPrint=0&amp;showTabs=0&amp;showCalendars=0&amp;showTz=0&amp;mode=AGENDA&amp;height=600&amp;wkst=1&amp;bgcolor=%23FFFFFF&amp;src=doesliverpool.com_4f906tbj39irupt6crbjhi998k%40group.calendar.google.com&amp;color=%23125A12&amp;ctz=Europe%2FLondon" style=" border-width:0 " width="930" height="600" frameborder="0" scrolling="no"></iframe>
+        <iframe src="https://www.google.com/calendar/embed?showTitle=0&amp;showNav=0&amp;showDate=0&amp;showPrint=0&amp;showTabs=0&amp;showCalendars=0&amp;showTz=0&amp;mode=AGENDA&amp;height=600&amp;wkst=1&amp;bgcolor=%23FFFFFF&amp;src=doesliverpool.com_4f906tbj39irupt6crbjhi998k%40group.calendar.google.com&amp;color=%23125A12&amp;ctz=Europe%2FLondon" style=" border-width:0 " width="930" height="1000" frameborder="0" scrolling="no"></iframe>
         <div class="webcams">
             <script type="text/javascript">
                 var webcams = [
@@ -30,8 +27,12 @@
                     },
                     {
                         id : '3dprinters',
-                        url : 'http://192.168.0.38/zm/cgi-bin/nph-zms?mode=single&scale=100&maxfps=5&buffer=1000&monitor=1&connkey='+window.password2+'&rand=1487679667'
+                        url : 'http://192.168.0.38/zm/cgi-bin/nph-zms?mode=jpeg&scale=100&maxfps=5&buffer=1000&monitor=1&connkey='+window.password2+'&rand=1487679667'
                     },
+                    {
+                        id : '3dqrcode',
+                        url : 'https://chart.googleapis.com/chart?cht=qr&chl=http%3A%2F%2F192.168.0.38%2Fzm%2F%3Fview%3Dwatch%26mid%3D1&chs=180x180&choe=UTF-8&chld=L|2'
+                    }
 /*
                     {
                         id : 'unit14',
@@ -43,7 +44,7 @@
                     ];
                 for ( var i = 0, l = webcams.length; i < l; ++i) {
                     var webcam = webcams[i];
-                    document.write('<div id="'+webcam.id+'" class="webcam"><img width="293" src="'+webcam.url+'"></div>');
+                    document.write('<div id="'+webcam.id+'" class="webcam"><img height="180" src="'+webcam.url+'"></div>');
                 }
             </script>
         </div>

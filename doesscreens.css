@@ -13,16 +13,15 @@ html, body {
     left: 0;
     padding: 0 00px;
     background: white;
-}
-
-.webcam :first-child {
-    padding-left:152px;
+    text-align: center;
 }
 
 .webcam {
-    float:left;
+    display: inline-block;
+    /*float:left;*/
     /*width: 360px;*/
-    width: 293px;
+    /*width: 293px;*/
+    height: 180px;
     padding: 0 00px;
     margin-right: 10px;
 }
