@@ -13,8 +13,11 @@ var DoES = (function() {
             clearInterval(page_timeout_interval);
         }
     }, 60000);
+
     var last_explosion = new Date('2016/10/05 16:07');
     var last_flood = new Date('2016/01/05 17:15');
+    var last_injury = new Date('2017/02/27 10:05');
+    
     function seasonalUpdates() {
         if (page_load_time.getMonth() == 11 || ( page_load_time.getMonth() == 0 && page_load_time.getDate() < 7)) {
             document.write('<script type="text/javascript" src="snow.js"></script>');
@@ -295,6 +298,8 @@ var DoES = (function() {
         $('.explosions .days').text(days);
         days = Math.floor((now - last_flood) / 86400000)
         $('.floods .days').text(days);
+        days = Math.floor((now - last_injury) / 86400000);
+        $('.injuries .days').text(days);
     }
 
     $(function(){
