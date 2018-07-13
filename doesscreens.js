@@ -14,7 +14,7 @@ var DoES = (function() {
         }
     }, 60000);
     var last_explosion = new Date('2018/06/14 21:55');
-    var last_flood = new Date('2018/06/22 09:00');
+    var last_flood = new Date('2018/07/13 17:40');
     function seasonalUpdates() {
         if (page_load_time.getMonth() == 11 || ( page_load_time.getMonth() == 0 && page_load_time.getDate() < 7)) {
             document.write('<script type="text/javascript" src="snow.js"></script>');
