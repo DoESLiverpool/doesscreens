@@ -118,9 +118,9 @@ var DoES = (function() {
                 // No need to check days
                 return true;
             }
-            /*if (!rruleObj.byday) {
+            if (!rruleObj.byday) {
                 return false;
-            }*/
+            }
             if (rruleObj.interval) {
                 var today = new Date();
                 today.setHours(0);
@@ -203,7 +203,7 @@ var DoES = (function() {
                     valid = true;
                 }
             }
-            if (iCalEvent.location && ! iCalEvent.location.match(/(Dinky|New Dinky|DoES|Office|Meeting Room|Boardroom|board room)/i)) {
+            if (iCalEvent.location && ! iCalEvent.location.match(/(Dinky|New Dinky|DoES|Office|Meeting Room|Boardroom|board room|Events Room)/i)) {
                 valid = false;
             }
             // Check for exclusions
