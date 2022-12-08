@@ -13,7 +13,7 @@ var DoES = (function() {
             clearInterval(page_timeout_interval);
         }
     }, 60000);
-    var last_explosion = new Date('2022/01/06 19:11');
+    var last_explosion = new Date('2022/12/08 18:73');
     var last_flood = new Date('2018/09/28 16:30');
     function seasonalUpdates() {
         if (page_load_time.getMonth() == 11 || ( page_load_time.getMonth() == 0 && page_load_time.getDate() < 7)) {
